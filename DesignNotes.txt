@@ -1,0 +1,54 @@
+
+## Elevator Idea (1-3 sentences that articulates concept)
+
+
+An app that helps people hit their goals by gamifying their planning and habit tracking. The app guides the user the process of setting goals and making plans, and motivates them to stay consistent through leveling up their "avatar." An AI asks the user questions like "what prevented you from hitting your habits?" and "what can you do to make sure you complete your habit tomorrow?"
+
+
+(Lean more into AI side with mantras and reminders?)
+
+
+## What benefit does this provide to the person using it? Why is this a good idea?
+
+
+It helps them organize their goals in one place and keep track of their commitments to themselves.
+It keeps them stay accountable and motivates them to be consistent and follow through on their plans.
+It gives them a reward signal where they can see progress from their habits before they see them in real life (the avatar).
+
+
+
+## Ideal Persona (not demographics - habits, values, beliefs) niche niche niche
+
+
+People who are very ambitious and motivated but struggle with staying consistent 
+- Not for people who don't already know / have big goals 
+
+- Not for people who aren't fully committed to using the app 
+
+People who want to use the app as a tool
+- Not for people who want a fun game
+
+People who want to make big changes in their lives
+- Not for people who want to keep doing everything the same 
+
+
+
+## BARE MINIMUM FEATURES
+
+- goal setting & planning
+- habit tracking
+- basic reflective prompts
+- basic avatar leveling
+
+
+Design 
+- information architecture (boxes on the screen)
+- user flows
+
+
+
+
+
+
+AFTER functionality specific mapping -> can start thinking about the page design
+

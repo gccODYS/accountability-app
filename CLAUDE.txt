@@ -1,0 +1,6 @@
+I want to create a journaling app that is powered by AI. It must have the following functionality:
+
+- The user needs to be able to create journals.
+- Journals should be stored somewhere where the user can look back on previous journals
+- Journals should somehow be stored in the AI's memory.
+- AI should respond to user journal entries based off context and knowledge from other journals
