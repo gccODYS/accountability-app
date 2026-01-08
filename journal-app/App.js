@@ -13,10 +13,31 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  KeyboardProvider,
+  KeyboardToolbar,
+  DefaultKeyboardToolbarTheme
+} from 'react-native-keyboard-controller';
 
 // Storage constants
 const STORAGE_KEY = '@journal_app:journals';
 const DEFAULT_PROMPT = 'What is something you\'ve been thinking about today?';
+
+// Keyboard toolbar theme matching app dark theme
+const keyboardToolbarTheme = {
+  light: {
+    ...DefaultKeyboardToolbarTheme.light,
+    primary: '#4a90e2',
+    background: '#2d2d44',
+    divider: '#3d3d5c',
+  },
+  dark: {
+    ...DefaultKeyboardToolbarTheme.dark,
+    primary: '#4a90e2',
+    background: '#2d2d44',
+    divider: '#3d3d5c',
+  },
+};
 
 // Helper function to format timestamps
 const formatTimestamp = (timestamp) => {
@@ -95,29 +116,34 @@ function JournalDetailView({ journal, onBack }) {
 // JournalEntryView Component
 function JournalEntryView({ journalText, onChangeText, onSave }) {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.entryContainer}>
-        <View style={styles.entryContent}>
-          <Text style={styles.promptText}>{DEFAULT_PROMPT}</Text>
-          <TextInput
-            style={styles.textInput}
-            multiline={true}
-            placeholder="Start writing your journal entry..."
-            placeholderTextColor="#666666"
-            value={journalText}
-            onChangeText={onChangeText}
-            textAlignVertical="top"
-          />
-          <TouchableOpacity
-            style={[styles.saveButton, !journalText.trim() && styles.saveButtonDisabled]}
-            onPress={onSave}
-            disabled={!journalText.trim()}
-          >
-            <Text style={styles.saveButtonText}>Save Journal</Text>
-          </TouchableOpacity>
+    <>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.entryContainer}>
+          <View style={styles.entryContent}>
+            <Text style={styles.promptText}>{DEFAULT_PROMPT}</Text>
+            <TextInput
+              style={styles.textInput}
+              multiline={true}
+              placeholder="Start writing your journal entry..."
+              placeholderTextColor="#666666"
+              value={journalText}
+              onChangeText={onChangeText}
+              textAlignVertical="top"
+            />
+            <TouchableOpacity
+              style={[styles.saveButton, !journalText.trim() && styles.saveButtonDisabled]}
+              onPress={onSave}
+              disabled={!journalText.trim()}
+            >
+              <Text style={styles.saveButtonText}>Save Journal</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+      <KeyboardToolbar theme={keyboardToolbarTheme}>
+        <KeyboardToolbar.Done text="Done" />
+      </KeyboardToolbar>
+    </>
   );
 }
 
@@ -202,27 +228,29 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      {currentView === 'entry' ? (
-        <JournalEntryView
-          journalText={journalText}
-          onChangeText={setJournalText}
-          onSave={handleSaveJournal}
-        />
-      ) : currentView === 'list' ? (
-        <JournalListView
-          journals={journals}
-          onNewEntry={handleNewEntry}
-          onSelectJournal={handleSelectJournal}
-        />
-      ) : (
-        <JournalDetailView
-          journal={selectedJournal}
-          onBack={handleBackToList}
-        />
-      )}
-      <StatusBar style="light" />
-    </View>
+    <KeyboardProvider>
+      <View style={styles.container}>
+        {currentView === 'entry' ? (
+          <JournalEntryView
+            journalText={journalText}
+            onChangeText={setJournalText}
+            onSave={handleSaveJournal}
+          />
+        ) : currentView === 'list' ? (
+          <JournalListView
+            journals={journals}
+            onNewEntry={handleNewEntry}
+            onSelectJournal={handleSelectJournal}
+          />
+        ) : (
+          <JournalDetailView
+            journal={selectedJournal}
+            onBack={handleBackToList}
+          />
+        )}
+        <StatusBar style="light" />
+      </View>
+    </KeyboardProvider>
   );
 }
 
